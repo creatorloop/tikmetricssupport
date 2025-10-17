@@ -1,69 +1,94 @@
-/* ===========================
-   TikMetrics — Dark Glass Panel + Lexend Deca
-   (place at END of _tikmetrics.scss)
-   =========================== */
+/* =========================================
+   TikMetrics — Dark Glass + Lexend Deca
+   ========================================= */
 
-/* 0) Font: Lexend Deca (applies everywhere inside the iframe) */
+/* Font (inside iframe) */
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap');
 html, body, * {
   font-family: 'Lexend Deca', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
 }
 
-/* 1) Force a dark-ish palette even if widget tries to load in light mode */
+/* Reset any hard light backgrounds the app sets */
+html, body, #app { background: transparent !important; }
+
+/* ---------- Force the palette the widget actually uses (n- vars) ---------- */
 :root {
   /* background & solids */
-  --background-color: 18 18 19 !important;
-  --solid-1: 23 23 26 !important;
-  --solid-2: 29 30 36 !important;
-  --solid-3: 44 45 54 !important;
-  --solid-active: 53 57 66 !important;
+  --n-background-color: 18 18 19 !important;
+  --n-solid-1: 23 23 26 !important;
+  --n-solid-2: 29 30 36 !important;
+  --n-solid-3: 44 45 54 !important;
+  --n-solid-active: 53 57 66 !important;
 
   /* borders */
-  --border-weak: 38 38 42 !important;
-  --border-strong: 52 52 52 !important;
+  --n-border-weak: 38 38 42 !important;
+  --n-border-strong: 52 52 52 !important;
 
-  /* slate text scale (ui/text legibility on dark) */
-  --slate-11: 176 180 186 !important;
-  --slate-12: 237 238 240 !important;
+  /* text scale */
+  --n-slate-11: 176 180 186 !important;
+  --n-slate-12: 237 238 240 !important;
+
+  /* keep brand iris tone usable on dark */
+  --n-iris-9: 91 91 214 !important;
 }
 
-/* 2) Main chat window — glass look */
+/* ---------- Main window: glass look ---------- */
 .woot--window {
   background: rgba(15, 18, 38, 0.55) !important; /* purplish-black */
   backdrop-filter: blur(18px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
   border: 1px solid rgba(130, 140, 255, 0.18) !important;
   border-radius: 18px !important;
-  color: rgb(var(--slate-12)) !important;
+  color: rgb(var(--n-slate-12)) !important;
 }
 
-/* 3) Header/footer/cards — match glass tone */
+/* Inner containers that sometimes carry bg utility classes */
+.woot--window,
+.woot--window *[class*="bg-n-"],
+.woot--window .card,
+.woot--window .conversation-card,
+.woot--window .article-suggestion {
+  background-color: transparent !important;
+}
+
+/* Header/footer/cards surfaces */
 .woot--header,
 .woot--footer,
-.card,
-.article-suggestion,
-.conversation-card {
+.woot--window .card,
+.woot--window .article-suggestion,
+.woot--window .conversation-card {
   background: rgba(20, 22, 45, 0.70) !important;
   border: 1px solid rgba(130, 140, 255, 0.18) !important;
-  color: rgb(var(--slate-12)) !important;
+  color: rgb(var(--n-slate-12)) !important;
   border-radius: 16px !important;
 }
 
-/* 4) Inputs, buttons, message text */
-.woot-input,
-.woot--textarea,
-.woot--button,
-.woot--message {
-  color: rgb(var(--slate-12)) !important;
+/* Text colors (titles, paragraphs, utility classes) */
+.woot--window h1,
+.woot--window h2,
+.woot--window h3,
+.woot--window p,
+.woot--window span,
+.woot--window .text-n-slate-12,
+.woot--header *,
+.woot--footer * {
+  color: rgb(var(--n-slate-12)) !important;
 }
 
-.woot-input,
-.woot--textarea {
+/* Inputs / textareas */
+.woot--window .woot-input,
+.woot--window .woot--textarea {
   background: rgba(20, 22, 45, 0.70) !important;
   border: 1px solid rgba(130, 140, 255, 0.18) !important;
+  color: rgb(var(--n-slate-12)) !important;
 }
 
-/* 5) Mobile — smaller, rounded, not fullscreen */
+/* Buttons */
+.woot--window .woot--button {
+  color: rgb(var(--n-slate-12)) !important;
+}
+
+/* ---------- Mobile: not full screen + rounded ---------- */
 @media (max-width: 767px) {
   .woot-widget--expanded .woot--window {
     width: calc(100vw - 28px) !important;
@@ -76,7 +101,7 @@ html, body, * {
     overflow: hidden !important;
   }
 
-  /* Remove the dim/backdrop so site remains visible behind */
+  /* keep site visible behind the widget */
   .woot-widget--expanded .woot-widget__backdrop {
     background: transparent !important;
   }
