@@ -1,19 +1,17 @@
 /* =========================================
-   TikMetrics — Dark Glass + Lexend Deca
+   TikMetrics — Dark Glass + Lexend Deca (hard override)
    ========================================= */
 
-/* Font (inside iframe) */
+/* 0) Font */
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap');
-html, body, * {
-  font-family: 'Lexend Deca', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
-}
+html, body, * { font-family: 'Lexend Deca', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important; }
 
-/* Reset any hard light backgrounds the app sets */
+/* 1) Ensure the base canvas isn't forcing white */
 html, body, #app { background: transparent !important; }
 
-/* ---------- Force the palette the widget actually uses (n- vars) ---------- */
-:root {
-  /* background & solids */
+/* 2) Re-map the Tailwind "n-" design tokens to dark */
+:root, html, body {
+  /* core background + solids */
   --n-background-color: 18 18 19 !important;
   --n-solid-1: 23 23 26 !important;
   --n-solid-2: 29 30 36 !important;
@@ -24,71 +22,94 @@ html, body, #app { background: transparent !important; }
   --n-border-weak: 38 38 42 !important;
   --n-border-strong: 52 52 52 !important;
 
-  /* text scale */
-  --n-slate-11: 176 180 186 !important;
-  --n-slate-12: 237 238 240 !important;
-
-  /* keep brand iris tone usable on dark */
-  --n-iris-9: 91 91 214 !important;
+  /* slate text scale */
+  --n-slate-1: 17 17 19 !important;
+  --n-slate-2: 24 25 27 !important;
+  --n-slate-3: 33 34 37 !important;
+  --n-slate-4: 39 42 45 !important;
+  --n-slate-5: 46 49 53 !important;
+  --n-slate-6: 54 58 63 !important;
+  --n-slate-7: 67 72 78 !important;
+  --n-slate-8: 90 97 105 !important;
+  --n-slate-9: 105 110 119 !important;
+  --n-slate-10: 119 123 132 !important;
+  --n-slate-11: 176 180 186 !important; /* text-secondary */
+  --n-slate-12: 237 238 240 !important; /* text-primary */
 }
 
-/* ---------- Main window: glass look ---------- */
+/* 3) MAIN WINDOW: glass */
 .woot--window {
-  background: rgba(15, 18, 38, 0.55) !important; /* purplish-black */
+  background: rgba(15,18,38,.55) !important;
   backdrop-filter: blur(18px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
-  border: 1px solid rgba(130, 140, 255, 0.18) !important;
+  border: 1px solid rgba(130,140,255,.18) !important;
   border-radius: 18px !important;
   color: rgb(var(--n-slate-12)) !important;
 }
 
-/* Inner containers that sometimes carry bg utility classes */
+/* 4) KILL the default white/grey backgrounds commonly applied via utilities */
 .woot--window,
-.woot--window *[class*="bg-n-"],
-.woot--window .card,
-.woot--window .conversation-card,
-.woot--window .article-suggestion {
+.woot--window * {
+  /* wipe any bg utilities to transparent so glass shows through */
+  /* common utility classes the widget uses */
+}
+.woot--window .bg-n-slate-1,
+.woot--window .bg-n-slate-2,
+.woot--window .bg-n-slate-3,
+.woot--window .bg-n-solid-1,
+.woot--window .bg-n-solid-2,
+.woot--window .bg-white,
+.woot--window .bg-solid-1,
+.woot--window .bg-solid-2,
+.woot--window .bg-background,
+.woot--window .bg-n-background {
   background-color: transparent !important;
 }
 
-/* Header/footer/cards surfaces */
+/* some containers are full-height with bg utilities – target them explicitly */
+.woot--window .w-full.h-full,
+.woot--window .h-full.bg-n-slate-2,
+.woot--window .h-full.bg-n-solid-1 {
+  background-color: transparent !important;
+}
+
+/* 5) SURFACES (header/footer/cards) */
 .woot--header,
 .woot--footer,
 .woot--window .card,
 .woot--window .article-suggestion,
 .woot--window .conversation-card {
-  background: rgba(20, 22, 45, 0.70) !important;
-  border: 1px solid rgba(130, 140, 255, 0.18) !important;
+  background: rgba(20,22,45,.70) !important;
+  border: 1px solid rgba(130,140,255,.18) !important;
   color: rgb(var(--n-slate-12)) !important;
   border-radius: 16px !important;
 }
 
-/* Text colors (titles, paragraphs, utility classes) */
+/* 6) TEXT COLORS (make headings readable) */
 .woot--window h1,
 .woot--window h2,
 .woot--window h3,
 .woot--window p,
 .woot--window span,
 .woot--window .text-n-slate-12,
+.woot--window .text-n-slate-11,
 .woot--header *,
 .woot--footer * {
   color: rgb(var(--n-slate-12)) !important;
 }
 
-/* Inputs / textareas */
+/* 7) Inputs / textareas / buttons */
 .woot--window .woot-input,
 .woot--window .woot--textarea {
-  background: rgba(20, 22, 45, 0.70) !important;
-  border: 1px solid rgba(130, 140, 255, 0.18) !important;
+  background: rgba(20,22,45,.70) !important;
+  border: 1px solid rgba(130,140,255,.18) !important;
   color: rgb(var(--n-slate-12)) !important;
 }
-
-/* Buttons */
 .woot--window .woot--button {
   color: rgb(var(--n-slate-12)) !important;
 }
 
-/* ---------- Mobile: not full screen + rounded ---------- */
+/* 8) Mobile: not fullscreen + rounded */
 @media (max-width: 767px) {
   .woot-widget--expanded .woot--window {
     width: calc(100vw - 28px) !important;
@@ -100,9 +121,5 @@ html, body, #app { background: transparent !important; }
     border-radius: 20px !important;
     overflow: hidden !important;
   }
-
-  /* keep site visible behind the widget */
-  .woot-widget--expanded .woot-widget__backdrop {
-    background: transparent !important;
-  }
+  .woot-widget--expanded .woot-widget__backdrop { background: transparent !important; }
 }
