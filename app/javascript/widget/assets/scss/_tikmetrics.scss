@@ -1,5 +1,11 @@
+/* TikMetrics — panel inside the iframe */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+* { font-family: 'Outfit', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important; }
+
+/* Main panel */
 .woot--window {
-  background: rgba(15, 18, 38, 0.55) !important; /* purplish-black */
+  background: rgba(15, 18, 38, 0.55) !important;
   backdrop-filter: blur(18px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
   border: 1px solid rgba(130, 140, 255, 0.18) !important;
@@ -7,21 +13,20 @@
   color: #e8edff !important;
 }
 
-/* Header glass + divider */
+/* Header */
 .woot--header {
   background: rgba(20, 22, 45, 0.70) !important;
   border-bottom: 1px solid rgba(130, 140, 255, 0.18) !important;
   color: #e8edff !important;
 }
 
-/* Inputs & buttons readable */
+/* Inputs/messages legibility */
 .woot-input, .woot--textarea, .woot--button, .woot--footer, .woot--message {
   color: #e8edff !important;
 }
 
-/* Mobile: make popup smaller (not full-screen) + rounded */
+/* Mobile: make popup not full-screen */
 @media (max-width: 767px) {
-  /* When widget opens (expanded), size and position the panel */
   .woot-widget--expanded .woot--window {
     width: calc(100vw - 28px) !important;
     height: 78vh !important;
@@ -33,7 +38,7 @@
     overflow: hidden !important;
   }
 
-  /* Remove/soften fullscreen backdrop on mobile so the page is still visible */
+  /* optional: no dark fullscreen backdrop */
   .woot-widget--expanded .woot-widget__backdrop {
     background: transparent !important;
   }
