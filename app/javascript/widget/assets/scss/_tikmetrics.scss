@@ -1,31 +1,69 @@
-/* TikMetrics — panel inside the iframe */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+/* ===========================
+   TikMetrics — Dark Glass Panel + Lexend Deca
+   (place at END of _tikmetrics.scss)
+   =========================== */
 
-* { font-family: 'Outfit', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important; }
+/* 0) Font: Lexend Deca (applies everywhere inside the iframe) */
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap');
+html, body, * {
+  font-family: 'Lexend Deca', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+}
 
-/* Main panel */
+/* 1) Force a dark-ish palette even if widget tries to load in light mode */
+:root {
+  /* background & solids */
+  --background-color: 18 18 19 !important;
+  --solid-1: 23 23 26 !important;
+  --solid-2: 29 30 36 !important;
+  --solid-3: 44 45 54 !important;
+  --solid-active: 53 57 66 !important;
+
+  /* borders */
+  --border-weak: 38 38 42 !important;
+  --border-strong: 52 52 52 !important;
+
+  /* slate text scale (ui/text legibility on dark) */
+  --slate-11: 176 180 186 !important;
+  --slate-12: 237 238 240 !important;
+}
+
+/* 2) Main chat window — glass look */
 .woot--window {
-  background: rgba(15, 18, 38, 0.55) !important;
+  background: rgba(15, 18, 38, 0.55) !important; /* purplish-black */
   backdrop-filter: blur(18px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
   border: 1px solid rgba(130, 140, 255, 0.18) !important;
   border-radius: 18px !important;
-  color: #e8edff !important;
+  color: rgb(var(--slate-12)) !important;
 }
 
-/* Header */
-.woot--header {
+/* 3) Header/footer/cards — match glass tone */
+.woot--header,
+.woot--footer,
+.card,
+.article-suggestion,
+.conversation-card {
   background: rgba(20, 22, 45, 0.70) !important;
-  border-bottom: 1px solid rgba(130, 140, 255, 0.18) !important;
-  color: #e8edff !important;
+  border: 1px solid rgba(130, 140, 255, 0.18) !important;
+  color: rgb(var(--slate-12)) !important;
+  border-radius: 16px !important;
 }
 
-/* Inputs/messages legibility */
-.woot-input, .woot--textarea, .woot--button, .woot--footer, .woot--message {
-  color: #e8edff !important;
+/* 4) Inputs, buttons, message text */
+.woot-input,
+.woot--textarea,
+.woot--button,
+.woot--message {
+  color: rgb(var(--slate-12)) !important;
 }
 
-/* Mobile: make popup not full-screen */
+.woot-input,
+.woot--textarea {
+  background: rgba(20, 22, 45, 0.70) !important;
+  border: 1px solid rgba(130, 140, 255, 0.18) !important;
+}
+
+/* 5) Mobile — smaller, rounded, not fullscreen */
 @media (max-width: 767px) {
   .woot-widget--expanded .woot--window {
     width: calc(100vw - 28px) !important;
@@ -38,7 +76,7 @@
     overflow: hidden !important;
   }
 
-  /* optional: no dark fullscreen backdrop */
+  /* Remove the dim/backdrop so site remains visible behind */
   .woot-widget--expanded .woot-widget__backdrop {
     background: transparent !important;
   }
